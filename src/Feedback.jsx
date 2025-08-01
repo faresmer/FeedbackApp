@@ -33,7 +33,8 @@ function Feedback(){
 
         const tRates = [...rates,newRate];
         setTempRates(tRates);
-        console.log(rates)
+        console.log([...rates,newRate])
+        console.log([...tempRates,newRate])
 
         
         
@@ -47,16 +48,23 @@ function Feedback(){
 
     function all(){
         if (tempRates !== null) {setRates([...tempRates])};
+        console.log([...rates])
+        console.log([...tempRates])
+      
     }
 
     function five(){
         const filtred = tempRates.filter( r => r.rating=='5');
         setRates([...filtred]);
+        console.log([...rates])
+        console.log([...tempRates])
     }
 
     function four(){
         const filtred = tempRates.filter( r => r.rating=='4');
         setRates([...filtred]);
+        console.log([...rates])
+        console.log([...tempRates])
     }
 
     function three(){
@@ -111,7 +119,9 @@ function Feedback(){
         <button className="one" onClick={one}>1⭐</button>
 
         <ul>{rates.map((e,i)=>{
-            return <li key={i} >{e.rating}⭐|{e.name}:" {e.messege} "</li>
+            return <li key={i}
+            className="fade-in"
+            style={{ animationDelay: 0.2 }} >{e.rating}⭐|{e.name}:" {e.messege} "</li>
         })}</ul>
         
 

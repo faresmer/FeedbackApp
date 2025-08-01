@@ -16,6 +16,7 @@ span{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;
   color: rgb(67, 1, 98);
+
 }
 
 input, textarea, select{
@@ -62,4 +63,18 @@ li{
   padding: 10px;
   margin: 5px 0;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  
 }
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+
