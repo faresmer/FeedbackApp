@@ -1,137 +1,99 @@
 import { useState } from "react";
 
-//error when i filter the rates then hit submit, i loose the origin rates.
+function Feedback() {
+    const [name, setName] = useState("");
+    const [rate, setRate] = useState(5);
+    const [messege, setMessege] = useState("");
+    const [allRates, setAllRates] = useState([
+        { name: 'fares', rating: '5', messege: 'the website is amazing i loved that!!!' }
+    ]);
+    const [rates, setRates] = useState(allRates);
 
-
-function Feedback(){
-    const [name,setName] =useState();
-    const [rate,setRate] = useState(5);
-    const [messege,setMessege] = useState();
-    const [rates,setRates] = useState([{name:'fares',rating:'5',messege:'the website is amazing i loved that!!!'}])
-    const [tempRates,setTempRates] = useState(rates);
-
-
-
-    
-    
-    function handleChangeUsername(e){
+    function handleChangeUsername(e) {
         setName(e.target.value);
     }
 
-    function handleChangeMessege(e){
+    function handleChangeMessege(e) {
         setMessege(e.target.value);
     }
 
-    function handleChangeRate(e){
+    function handleChangeRate(e) {
         setRate(e.target.value);
     }
 
-    function submit(){
-       
-        const newRate = {name:name,rating:rate,messege:messege};
-        
-        setRates([...tempRates,newRate])
+    function submit() {
+        const newRate = { name, rating: rate, messege };
+        const updatedAllRates = [...allRates, newRate];
+        setAllRates(updatedAllRates);
+        setRates(updatedAllRates); // Show all after submit
+        setName("");
+        setMessege("");
         document.getElementsByTagName("input")[0].value = '';
         document.getElementsByTagName('textarea')[0].value = '';
-
-        const tRates = [...rates,newRate];
-        setTempRates(tRates);
-        console.log([...rates,newRate])
-        console.log([...tempRates,newRate])
-
-        
-        
-
-        
-
-
     }
 
-    
-
-    function all(){
-        if (tempRates !== null) {setRates([...tempRates])};
-        console.log([...rates])
-        console.log([...tempRates])
-      
+    function all() {
+        setRates([...allRates]);
     }
 
-    function five(){
-        const filtred = tempRates.filter( r => r.rating=='5');
-        setRates([...filtred]);
-        console.log([...rates])
-        console.log([...tempRates])
+    function five() {
+        setRates(allRates.filter(r => r.rating === '5'));
     }
 
-    function four(){
-        const filtred = tempRates.filter( r => r.rating=='4');
-        setRates([...filtred]);
-        console.log([...rates])
-        console.log([...tempRates])
+    function four() {
+        setRates(allRates.filter(r => r.rating === '4'));
     }
 
-    function three(){
-        const filtred = tempRates.filter( r => r.rating=='3');
-        setRates([...filtred]);
+    function three() {
+        setRates(allRates.filter(r => r.rating === '3'));
     }
 
-    function two(){
-        const filtred = tempRates.filter( r => r.rating=='2');
-        setRates([...filtred]);
+    function two() {
+        setRates(allRates.filter(r => r.rating === '2'));
     }
 
-    function one(){
-        const filtred = tempRates.filter( r => r.rating=='1');
-        setRates([...filtred]);
+    function one() {
+        setRates(allRates.filter(r => r.rating === '1'));
     }
 
-
-
-    return(
-    <div>
+    return (
         <div>
-            <span>Username:</span>
-            <input type="text" onChange={handleChangeUsername} />
+            <div>
+                <span>Username:</span>
+                <input type="text" onChange={handleChangeUsername} />
+            </div>
+            <form>
+                <span>Rating:</span>
+                <select name="rate" id="rate" value={rate} onChange={handleChangeRate}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </form>
+            <div>
+                <span>Messege:</span>
+                <br />
+                <textarea name="messege" id="messege" onChange={handleChangeMessege}></textarea>
+            </div>
+            <button onClick={submit} className="submit-button">Sumbit Rating</button>
+            <h1>Rates:</h1>
+            <button className="All" onClick={all}>All</button>
+            <button className="five" onClick={five}>5⭐</button>
+            <button className="four" onClick={four}>4⭐</button>
+            <button className="three" onClick={three}>3⭐</button>
+            <button className="two" onClick={two}>2⭐</button>
+            <button className="one" onClick={one}>1⭐</button>
+            <ul>
+                {rates.map((e, i) => (
+                    <li key={i} className="fade-in" style={{ animationDelay: 0.2 }}>
+                        {e.rating}⭐|{e.name}:" {e.messege} "
+                    </li>
+                ))}
+            </ul>
         </div>
-        <form action="">
-            <span>Rating:</span>
-            <select name="rate" id="rate" value={rate} onChange={handleChangeRate}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </form>
-
-        <div>
-            <span>Messege:</span>
-            <br />
-            <textarea name="messege" id="messege" onChange={handleChangeMessege}></textarea>
-        </div>
-
-        <button onClick={submit} className="submit-button">Sumbit Rating</button>
-
-
-        <h1>Rates:</h1>
-        <button className="All" onClick={all}>All</button>
-        <button className="five" onClick={five}>5⭐</button>
-        <button className="four" onClick={four}>4⭐</button>
-        <button className="three" onClick={three}>3⭐</button>
-        <button className="two" onClick={two}>2⭐</button>
-        <button className="one" onClick={one}>1⭐</button>
-
-        <ul>{rates.map((e,i)=>{
-            return <li key={i}
-            className="fade-in"
-            style={{ animationDelay: 0.2 }} >{e.rating}⭐|{e.name}:" {e.messege} "</li>
-        })}</ul>
-        
-
-
-    </div>
-        
-    )
+    );
 }
 
 export default Feedback;
